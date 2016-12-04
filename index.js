@@ -1,80 +1,108 @@
-/**
- * Dependencies.
- */
+var doc = require('global/document');
+var react = require('react');
+var dom = require('react-dom');
+var unified = require('unified');
+var english = require('retext-english');
+var emoji = require('retext-emoji');
+var sentiment = require('retext-sentiment');
+var lerp = require('lerp');
+var unlerp = require('unlerp');
 
-var Retext = require('wooorm/retext@0.5.0');
-var sentiment = require('wooorm/retext-sentiment@0.4.2');
-var emoji = require('wooorm/retext-emoji@0.5.4');
-var dom = require('wooorm/retext-dom@0.3.2');
-var visit = require('wooorm/retext-visit@0.2.5');
+var h = react.createElement;
+var processor = unified().use(english).use(emoji).use(sentiment);
 
-/**
- * Retext.
- */
+dom.render(
+  h(react.createClass({
+    getInitialState: getInitialState,
+    onChange: onChange,
+    onScroll: onScroll,
+    render: render
+  })),
+  doc.getElementById('root')
+);
 
-var retext = new Retext()
-    .use(dom)
-    .use(emoji)
-    .use(visit)
-    .use(sentiment);
-
-/**
- * DOM elements.
- */
-
-var $input = document.getElementsByTagName('textarea')[0];
-var $output = document.getElementsByTagName('div')[0];
-
-/**
- * Make sure emoji are created as DOM elements.
- */
-
-retext.TextOM.EmoticonNode.prototype.DOMTagName = 'span';
-
-/**
- * Event handlers.
- */
-
-var tree;
-
-function oninputchange() {
-    if (tree) {
-        tree.toDOMNode().parentNode.removeChild(tree.toDOMNode());
-    }
-
-    retext.parse($input.value, function (err, root) {
-        if (err) throw err;
-
-        tree = root;
-
-        tree.visit(function (node) {
-            var DOMNode;
-
-            if (!node.DOMTagName || !node.data.polarity) {
-                return;
-            }
-
-            console.log(node, node.toString(), node.data.polarity);
-
-            DOMNode = node.toDOMNode();
-
-            DOMNode.setAttribute('data-polarity', node.data.polarity);
-            DOMNode.setAttribute('data-valence', node.data.valence);
-            DOMNode.className = node.type + ' ' + node.nodeName;
-        });
-
-        $output.appendChild(tree.toDOMNode());
-    });
+function getInitialState() {
+  return {text: doc.getElementsByTagName('template')[0].innerHTML};
 }
 
-/**
- * Attach event handlers.
- */
+function onChange(ev) {
+  this.setState({text: ev.target.value});
+}
 
-$input.addEventListener('input', oninputchange);
+function onScroll(ev) {
+  this.refs.draw.scrollTop = ev.target.scrollTop;
+}
 
-/**
- * Provide initial answer.
- */
+function render() {
+  var text = this.state.text;
+  var tree = processor.run(processor.parse(text));
+  var key = 0;
 
-oninputchange();
+  return h('div', {className: 'editor'}, [
+    h('div', {key: 'draw', className: 'draw', ref: 'draw'}, pad(all(tree))),
+    h('textarea', {key: 'area', value: text, onChange: this.onChange, onScroll: this.onScroll})
+  ]);
+
+  function all(node) {
+    var children = node.children;
+    var length = children.length;
+    var index = -1;
+    var results = [];
+
+    while (++index < length) {
+      results = results.concat(one(children[index]));
+    }
+
+    return results;
+  }
+
+  function one(node) {
+    var result = 'value' in node ? node.value : all(node);
+    var styles = style(node);
+
+    if (styles) {
+      key++;
+      result = h('span', {key: 's-' + key, style: styles}, result);
+    }
+
+    return result;
+  }
+
+  /* Trailing white-space in a `textarea` is shown, but not in a `div`
+   * with `white-space: pre-wrap`. Add a `br` to make the last newline
+   * explicit. */
+  function pad(nodes) {
+    var tail = nodes[nodes.length - 1];
+
+    if (typeof tail === 'string' && tail.charAt(tail.length - 1) === '\n') {
+      nodes.push(h('br', {key: 'break'}));
+    }
+
+    return nodes;
+  }
+}
+
+function style(node) {
+  var result = {};
+
+  if (node.data) {
+    if (node.type === 'SentenceNode') {
+      result.backgroundColor = color(node.data.polarity, 10, true);
+      return result;
+    }
+
+    if (node.type === 'WordNode' || node.type === 'EmoticonNode') {
+      result.border = '0 solid ' + color(node.data.polarity, 5);
+      result.paddingBottom = result.borderBottomWidth = '2px';
+      return result;
+    }
+  }
+}
+
+function color(value, range, hard) {
+  return 'hsl(' + [
+    lerp(0, 120, Math.max(0, Math.min(1, unlerp(-range, range, value)))),
+    '93%',
+    hard ? '90%' : '60%'
+  ].join(', ') + ')';
+}

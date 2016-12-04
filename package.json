@@ -1,0 +1,30 @@
+{
+  "name": "www-retext-sentiment",
+  "private": true,
+  "dependencies": {
+    "global": "^4.3.1",
+    "lerp": "^1.0.3",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "retext-emoji": "^2.0.0",
+    "retext-english": "^2.0.0",
+    "retext-sentiment": "^2.0.2",
+    "unified": "^5.1.0",
+    "unlerp": "^1.0.1"
+  },
+  "devDependencies": {
+    "browserify": "^13.1.1",
+    "xo": "^0.17.1"
+  },
+  "scripts": {
+    "build": "browserify index.js > build.js",
+    "lint": "xo",
+    "test": "npm run build && npm run lint"
+  },
+  "xo": {
+    "space": true,
+    "ignore": [
+      "build.js"
+    ]
+  }
+}

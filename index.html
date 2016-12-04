@@ -1,27 +1,24 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>retext-sentiment</title>
-    <link rel="stylesheet" href="index.css" charset="utf-8">
-  </head>
-  <body>
-    <h1>retext-sentiment — Detect the sentiment of text with Retext</h1>
-    <p>A quick demo of <a href="https://github.com/wooorm/retext-sentiment/">wooorm/retext-sentiment</a>.</p>
-    <p>Just paste (or write) some text in the text area below. I recommend Googling <a href="https://www.google.com/search?q=site%3Awww.imdb.com+%22reviews+%26+ratings%22">IMDb for reviews</a>.</p>
-    <p>Please raise any issues on <a href="https://github.com/wooorm/retext-sentiment/issues">GitHub</a>.</p>
-    <p>The positivity or negativity on paragraphs and sentences is depicted by their background colour. The polarity of words is depicted through a coloured underline. Pure red or green underlines depict maximum polarity; the more blue in the underline, the less extreme the “emotions”.</p>
-    <p>Note that word/emoji are negated when preceded by a word like `not` or `neither` on a sentence level, but the values themselves remain the same</p>
-    <textarea class="retext-sentiment__input" rows="20" cols="80" autofocus>Bastard bullshit agonise accident absentee. Neutral positive negative. Breathtaking amazing adore accomplished accept.
+<!doctype html>
+<meta charset="utf8">
+<title>retext-sentiment</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="index.css">
+<style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<a href="https://github.com/wooorm/retext-sentiment" class="github-corner">
+  <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#4c1;color:#fff;position:absolute;top:0;border:0;left:0;transform:scale(-1,1);">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+    <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+  </svg>
+</a>
+<div id="root"></div>
+<p class="credits"><a href="https://github.com/wooorm/retext-sentiment">retext-sentiment</a> • detect the sentiment of text • by <a href="https://github.com/wooorm">@wooorm</a>.</p>
+<template>O’Malley, Sheila. “Things to Come Movie Review (2016)" — rogerebert.com/reviews/things-to-come-2016
 
-Not cool.
+"The future seems compromised." That line, in Mia Hansen-Løve's "Things to Come," is spoken by an editor at a publishing house, explaining to author Nathalie Chazeaux (Isabelle Huppert) why her popular philosophy textbook needs some serious revisions, maybe even an entire "re-branding." The words make sense in the practical context, but when telescoped out into the themes of this beautiful film they take on enormous relevance. The future that Nathalie believed in now "seems compromised." Hansen-Løve's gift is in presenting this vast internal journey with elegance and clarity, resisting the urge for scenery-chewing catharsis, and always examining just how much time operates as a force in our lives (whether we acknowledge it or not). In one way or another, Hansen-Løve's films are all about the passage of time.
 
-Neither wrong nor good :scream:.
+Nathalie and Heinz (André Marcon), both professors of philosophy at universities in Paris, have been married for 25 years, and have two adult children. There is a comfort in the family dynamic coming from the assumptions of continuity. The kids come over for dinner. No tension swirls beneath the surface. Until one day, Heinz tells Nathalie that he has met someone else and will be moving in with her. The ensuing conversation is not accented by tears being shed or crockery being thrown. Nathalie is shocked and blindsided ("I thought you would love me forever," she says, stunned), but it takes a while for the reality to really sink in. Meanwhile, life, in all its complexity, continues. Time, like the cliched river, keeps rolling on. When Fabien (Roman Kolinka), her former protégé, asks her how she is doing, she says, “It’s not that serious. My life isn’t over. Deep down, I was prepared. I’m lucky to be fulfilled intellectually.” You believe her.
 
-Hai sexy 😏
+However, life is not just one thing, life is made up of many parts. Hansen-Løve's narratives are about the many parts. During the year of time "Things to Come" takes place, Nathalie experiences the dissolution of her marriage, the dawning realization that her high-maintenance mother (Edith Scob) can no longer take care of herself, the changing of the guard at her publishing house and the troubling implications of that, and a new friendship with Fabien, a writer of great promise now living in an anarchists' collective in the countryside. She also has to figure out what to do with Pandora, her mother's independent-minded black cat. (In "Elle," released last month, Isabelle Huppert also shares the screen with a memorable cat in a key co-starring role.)
 
-:,'(</textarea>
-    <div></div>
-    <script src="build.js"></script>
-  </body>
-</html>
+...</template>
+<script src="build.js"></script>

@@ -1,40 +1,59 @@
+html {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 16px;
+  line-height: 1.5;
+  color: hsl(104, 85%, 4%);
+  background-color: hsl(104, 85%, 98%);
+}
 
-/* Anything above 9: */
-p[data-valence="positive"], .SentenceNode[data-valence="positive"] { background-color: rgba(0, 255, 0, 0.50); }
+.draw { color: transparent; }
 
-p[data-polarity="1"], .SentenceNode[data-polarity="1"] { background-color: rgba(0, 255, 0, 0.05); }
-p[data-polarity="2"], .SentenceNode[data-polarity="2"] { background-color: rgba(0, 255, 0, 0.10); }
-p[data-polarity="3"], .SentenceNode[data-polarity="3"] { background-color: rgba(0, 255, 0, 0.15); }
-p[data-polarity="4"], .SentenceNode[data-polarity="4"] { background-color: rgba(0, 255, 0, 0.20); }
-p[data-polarity="5"], .SentenceNode[data-polarity="5"] { background-color: rgba(0, 255, 0, 0.25); }
-p[data-polarity="6"], .SentenceNode[data-polarity="6"] { background-color: rgba(0, 255, 0, 0.30); }
-p[data-polarity="7"], .SentenceNode[data-polarity="7"] { background-color: rgba(0, 255, 0, 0.35); }
-p[data-polarity="8"], .SentenceNode[data-polarity="8"] { background-color: rgba(0, 255, 0, 0.40); }
-p[data-polarity="9"], .SentenceNode[data-polarity="9"] { background-color: rgba(0, 255, 0, 0.45); }
+textarea { color: inherit; }
 
-/* Anything below -9: */
+.credits { text-align: center; }
 
-p[data-valence="negative"], .SentenceNode[data-valence="negative"] { background-color: rgba(255, 0, 0, 0.50); }
-p[data-polarity="-1"], .SentenceNode[data-polarity="-1"] { background-color: rgba(255, 0, 0, 0.05); }
-p[data-polarity="-2"], .SentenceNode[data-polarity="-2"] { background-color: rgba(255, 0, 0, 0.10); }
-p[data-polarity="-3"], .SentenceNode[data-polarity="-3"] { background-color: rgba(255, 0, 0, 0.15); }
-p[data-polarity="-4"], .SentenceNode[data-polarity="-4"] { background-color: rgba(255, 0, 0, 0.20); }
-p[data-polarity="-5"], .SentenceNode[data-polarity="-5"] { background-color: rgba(255, 0, 0, 0.25); }
-p[data-polarity="-6"], .SentenceNode[data-polarity="-6"] { background-color: rgba(255, 0, 0, 0.30); }
-p[data-polarity="-7"], .SentenceNode[data-polarity="-7"] { background-color: rgba(255, 0, 0, 0.35); }
-p[data-polarity="-8"], .SentenceNode[data-polarity="-8"] { background-color: rgba(255, 0, 0, 0.40); }
-p[data-polarity="-9"], .SentenceNode[data-polarity="-9"] { background-color: rgba(255, 0, 0, 0.45); }
+a {
+  color: hsl(104, 85%, 43%);
+  text-decoration: none;
+  transition: color 200ms;
+}
 
+a:focus, a:hover { color: initial; }
 
-.WordNode[data-polarity], .Text[data-polarity] { padding-bottom: 1px; border-bottom: 2px solid transparent; }
+template { display: none; }
 
-.WordNode[data-polarity="1"], .Text[data-polarity="1"] { border-color: rgb(0, 255, 255); }
-.WordNode[data-polarity="2"], .Text[data-polarity="2"] { border-color: rgb(0, 255, 191); }
-.WordNode[data-polarity="3"], .Text[data-polarity="3"] { border-color: rgb(0, 255, 127); }
-.WordNode[data-polarity="4"], .Text[data-polarity="4"] { border-color: rgb(0, 255, 64); }
-.WordNode[data-polarity="5"], .Text[data-polarity="5"] { border-color: rgb(0, 255, 0); }
-.WordNode[data-polarity="-1"], .Text[data-polarity="-1"] { border-color: rgb(255, 0, 255); }
-.WordNode[data-polarity="-2"], .Text[data-polarity="-2"] { border-color: rgb(255, 0, 191); }
-.WordNode[data-polarity="-3"], .Text[data-polarity="-3"] { border-color: rgb(255, 0, 127); }
-.WordNode[data-polarity="-4"], .Text[data-polarity="-4"] { border-color: rgb(255, 0, 64); }
-.WordNode[data-polarity="-5"], .Text[data-polarity="-5"] { border-color: rgb(255, 0, 0); }
+body {
+  margin: 0;
+  padding: 4em 1em 0 1em;
+}
+
+.editor {
+  position: relative;
+  height: calc(100vh - 9em);
+  max-width: 37em;
+  margin: auto;
+}
+
+textarea, .draw {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: calc(100vh - 9em);
+  border: none;
+  outline: none;
+  resize: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  /* Can’t use a nice font: kerning renders differently in textareas. */
+  font-family: monospace;
+  line-height: inherit;
+  font-size: inherit;
+  background: transparent;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
